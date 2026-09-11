@@ -1,0 +1,26 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+
+# build outputs
+build/
+dist/
+out/
+node_modules/
+
+# local env / secrets
+.env
+.env.*
+*.log
+
+# temporary files
+*.tmp
+*.bak
+*.swp
+
+# generated artifacts
+coverage/
+*.pdb
+*.exe

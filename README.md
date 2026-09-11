@@ -1,2 +1,26 @@
-# open-revo
-OpenRevo - Lightweight Mechrevo Control Center for 40/50 Series Laptops.OpenRevo - é€‚ç”¨äº 40/50 ç³»æœºæ¢°é©å‘½ç¬”è®°æœ¬çš„è½»é‡çº§æ§åˆ¶ä¸­å¿ƒ é›¶å®˜æ–¹ç»„ä»¶ä¾èµ–ï¼Œæä¾›æ›´è½»ã€æ›´å¿«ã€æ›´é€æ˜çš„ç¡¬ä»¶æ§åˆ¶ä½“éªŒ
+# OpenRevo
+
+OpenRevo - Lightweight Mechrevo Control Center for 40/50 Series Laptops.
+
+OpenRevo - ÊÊÓÃÓÚ 40/50 Ïµ»úĞµ¸ïÃü±Ê¼Ç±¾µÄÇáÁ¿¼¶¿ØÖÆÖĞĞÄ¡£
+
+Áã¹Ù·½×é¼şÒÀÀµ£¬Ìá¹©¸üÇá¡¢¸ü¿ì¡¢¸üÍ¸Ã÷µÄÓ²¼ş¿ØÖÆÌåÑé¡£
+
+## Scope
+
+- 40/50 series support focus
+- OEM control-center takeover workflow
+- Community maintenance and reverse-engineering documentation
+- Public-safe implementation and tooling
+
+## Important note
+
+This repository intentionally excludes private hardware assets, EC-specific reverse-engineering data, vendor-only binaries, device probes, and other confidential material.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Status
+
+This repo is a clean public starting point. You can begin placing project files here as you separate public-safe content from private assets.
