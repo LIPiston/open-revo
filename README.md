@@ -1,26 +1,224 @@
-# OpenRevo
+# OpenRevo (开源机械革命/同方笔记本控制中心)
 
-OpenRevo - Lightweight Mechrevo Control Center for 40/50 Series Laptops.
+## Project Status: Public Preview
 
-OpenRevo - ������ 40/50 ϵ��е�����ʼǱ����������������ġ�
+OpenRevo is a community-driven project focused on the Mechrevo / TongFang laptop ecosystem. This repository currently contains the public-safe portion of the project, including project overview, architecture notes, public documentation, and community-facing materials.
 
-��ٷ�����������ṩ���ᡢ���졢��͸����Ӳ���������顣
+We are actively organizing and curating the open-source-safe subset before broader release. Device-specific reverse-engineering data, vendor-private mappings, hardware probes, and other sensitive platform assets are intentionally not included here.
 
-## Scope
+This repo is intended to serve as a transparent foundation for the project, and more public materials will be added progressively as the open-source boundary is refined.
 
-- 40/50 series support focus
-- OEM control-center takeover workflow
-- Community maintenance and reverse-engineering documentation
-- Public-safe implementation and tooling
+<div align="center">
 
-## Important note
+![OpenRevo Banner](./docs/logo_s.jpg)
 
-This repository intentionally excludes private hardware assets, EC-specific reverse-engineering data, vendor-only binaries, device probes, and other confidential material.
+[![Version](https://img.shields.io/badge/Release-v0.6.0-6366f1.svg?style=flat-square)](https://github.com/)
+[![License](https://img.shields.io/badge/License-MIT-10b981.svg?style=flat-square)](LICENSE)
+[![Framework](https://img.shields.io/badge/Framework-Tauri%20v2%20+%20Rust-f59e0b.svg?style=flat-square)](https://v2.tauri.app/)
+[![Frontend](https://img.shields.io/badge/Frontend-React%2018%20+%20TypeScript-38bdf8.svg?style=flat-square)](https://react.dev/)
+[![Free & Open Source](https://img.shields.io/badge/Open%20Source-100%25%20Free-rose.svg?style=flat-square)](#-开源守则与严正反倒卖声明)
 
-## License
+**专为机械革命 (MECHREVO / TongFang) 游戏本打造的现代化、轻量级、官方控件零依赖开源控制中心**  
+替代臃肿卡顿、内存泄漏且保守受限的官方后台服务，无需安装官方控制中心任何组件，功能只多不少，带来纯净流畅、即开即用的硬件极速掌控体验。
 
-This project is licensed under the MIT License.
+</div>
 
-## Status
+---
 
-This repo is a clean public starting point. You can begin placing project files here as you separate public-safe content from private assets.
+### 🛡️ 严正声明：开源免费 · 严禁倒卖
+
+> **OpenRevo 为 100% 永久免费且开源的公益社区项目，任何人在任何时间均可免费下载和使用！**  
+> **严禁任何个人、二道贩子在闲鱼、淘宝、拼多多、抖音等任何平台或私域群聊中对本软件进行换皮、打包倒卖、收费分发或捆绑销售！**  
+> **若您是通过付费购买获得了本软件，说明您遭遇了不良商家的恶意欺诈，请立即向交易平台申请退款并向平台举报侵权商家！**
+
+---
+
+## � 界面预览
+
+以下截图展示了 OpenRevo 当前公开的核心界面与功能入口，便于快速理解项目方向与交互方式。
+
+### 主界面总览
+
+<img src="docs/screenshots/dashboard.jpg" width="600" alt="Dashboard overview" />
+
+### Mini Drawer
+
+<img src="docs/screenshots/miniDraw.jpg" width="200" alt="MiniDraw" />
+
+### RGB 灯效
+
+<img src="docs/screenshots/better%20RGB.jpg" width="600" alt="Dashboard overview" />
+
+### 散热 / 功耗控制
+
+<img src="docs/screenshots/coolingSys.jpg" width="600" alt="Dashboard overview" />
+
+---
+
+## �💡 为什么选择 OpenRevo？
+
+* ⚡ **极速轻量，告别臃肿**：采用 **Rust 原生核心 + Webview2** 架构，打包为单文件绿色版（安装包不到 2MB），常驻内存低至约 15MB，杜绝官方控制中心动辄数百兆的后台守护服务占用。
+* 🌈 **独创键盘背光双引擎**：内置 **BetterRGB 极客高刷推流** 与 **原厂硬件固件 (0% CPU)** 双引擎，支持平滑自适应流光与退出无缝托管，彻底根治2024/2025/2026款灯效卡顿问题。
+* 🎛️ **极速托盘抽屉 (MiniDrawer)**：点击任务栏托盘即可瞬间展开高响应控制抽屉，无需展开主界面即可毫秒级完成模式切换、风扇强冷与屏幕高刷调节。
+* 🎨 **电竞暗黑美学 & 双工业主题**：全面对标专业调校工具设计语言，支持 **极致单色工业风 (`mono`)** 与 **赛博多彩分区风 (`cyber`)** 一键无缝切换。
+* 🧩 **多模具能力自适应感知**：自动感知机型物理规格，去持8种模具24种机型，提供独立单键 RGB、单区同色 RGB 与单色白光键盘背光的精准适配与优雅降级。
+
+
+---
+
+## ✨ 核心功能一览
+
+### 1. 🌈 键盘背光双引擎架构 (Dual-Engine Lighting)
+- **极客高刷推流引擎 (BetterRGB 空间投影算法)**：
+  - 成年人不做选择，两种引擎全都要，感谢 [Better RGB](https://github.com/ZavierChen/BetterRGB-ITE8291-Adaptive)；
+  - 空间多维插值几何投影，支持 15 FPS ~ 60 FPS 逐帧动态高刷渲染；
+  - 提供 **波浪 (Wave)、正弦呼吸、同心涟漪、丝滑流沙、电流穿梭、彩虹旋转、数码矩阵、霹雳闪电、烈焰翻滚** 等 14 种绚丽动效；
+- **原厂硬件固件引擎 (0% CPU 零开销模式)**：
+  - 由键盘主控芯片内置硬件定时器独立驱动，系统绝对零能耗，适合极致省电场景；
+- **智能交接与防黑屏守护**：
+  - 退出软件时，自动将当前动态灯效智能映射为单片机内置流光并无缝托管，杜绝背光突然熄灭或变暗；
+  - 拔掉电源自动平滑降级为低能耗硬件模式，重新插电智能恢复高刷流光。
+
+### 2. 🎛️ 极速托盘抽屉 (MiniDrawer)
+- 驻留 Windows 任务栏系统托盘，轻点图标瞬间呼出微型控制台；
+- 快捷操作包含：四大性能模式切换、一键风扇强冷、键盘背光模式/色彩/亮度快捷调节、屏幕刷新率 (Hz) 与亮度即时无缝调节、常用硬件功能战术开关。
+
+### 3. 🎚️ 极客自定义调校与性能模式 (Custom Tuning)
+- **四大运行模式即时切换**：办公模式 (Office)、均衡模式 (Balance)、狂暴模式 (Turbo/Beast)、极客自定义调优模式 (Custom)；
+- **CPU 功耗释放精细微调**：支持对长时间功耗限制 (PL1)、短时间突增功耗 (PL2) 与瞬态峰值电流 (PL4) 进行精细调节；
+- **GPU 动态增益调控**：实时管控显卡 Dynamic Boost 动态调度幅度；
+- **多阶梯风扇温控曲线**：CPU / GPU 独立多点温度响应曲线，支持自定义阻尼灵敏度与防骤增平滑调节；
+- **物理 Q-Key 状态机闭环**：原生状态机闭环解决机身实体按键偏色卡死问题，软硬件灯光状态 100% 实时同步。
+
+### 4. 🧊 智能外置水冷机管理 (Water Cooler Management)
+- 原生低功耗蓝牙 (BLE) 拓扑通信，免配对即开即连；
+- 实时遥测外置水冷机水泵运转状态与散热风扇实时转速；
+- 支持多种水冷运转策略联动与过温异常保护提醒。
+- 带温度墙曲线的水冷机中控你见过没有？
+
+### 5. 🔋 供电与电池健康养护
+- **三档电池健康充放电阈值**：长效模式 (100%)、日常均衡 (80%)、工作站长寿养护 (60%) 闭环管控；
+- **关机对外 USB 充电**：支持自由开启/关闭关机状态下的 USB 外设供电能力；
+- **通电自动开机 (AC Recovery)**：硬件直通开关，适配外接扩展坞与工作台场景。
+
+### 6. 💻 显卡模式与战术快捷开关
+- **多模显卡拓扑调控**：支持独显直连 (dGPU)、混合输出 (Hybrid) 与纯核显模式的安全检测与切换；
+- **外设硬件战术开关**：触控板锁定、摄像头硬件防窥、Win 键防误触、Fn 键锁定、无线 WiFi / 蓝牙一键开关。
+
+### 7. 🔓 UEFI 高级菜单跨代自适应
+- 支持免进 BIOS 直接在系统内无感开启或隐藏主板高级硬件调优菜单，便于极客深度调优。
+
+---
+
+## 🏗️ 架构设计与分层保护 (HAL Architecture)
+
+OpenRevo 遵循现代分层解耦架构设计：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 OpenRevo 用户交互与业务层                    │
+│  - React 18 现代化交互界面 (Tailwind CSS, Lucide Icons)     │
+│  - 双工业主题引擎 (极致单色 mono / 赛博多彩 cyber)           │
+│  - 极速托盘迷你抽屉 (MiniDrawer) 高频调控                    │
+│  - 调控策略与曲线平滑插值运算算法                           │
+│  - Tauri v2 跨进程 IPC、系统电源监听与单例守护              │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ 调用硬件统一抽象契约
+┌──────────────────────────▼──────────────────────────────────┐
+│             硬件抽象层 (MechrevoHardwareHAL Trait)          │
+│                                                             │
+│   ┌─────────────────────────┐   ┌─────────────────────────┐ │
+│   │   MockHAL (开源仿真器)   │   │   DriverHAL (物理驱动)   │ │
+│   │   任何人克隆代码均可直接 │   │   包含硬件安全边界断言   │ │
+│   │   编译、运行与调试界面   │   │   与真机通信执行链路     │ │
+│   └─────────────────────────┘   └─────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+```
+
+* **社区友好**：仓库默认搭载通用模拟驱动（`MockHAL`），任何开发者无需机械革命特定真机即可克隆代码编译并体验完整界面交互；
+* **安全第一**：真机驱动层内置严格的硬件安全边界防护机制，杜绝超出主板电气极限的高危操作。
+
+---
+
+## 🛠️ 技术栈
+
+| 领域 | 选型技术 | 优势 |
+| :--- | :--- | :--- |
+| **桌面框架** | [Tauri v2](https://v2.tauri.app/) | 超轻量、低内存占用、高安全沙箱 |
+| **后端语言** | [Rust](https://www.rust-lang.org/) | 内存安全、零成本抽象、原生 Windows API 直连 |
+| **前端技术** | React 18 + TypeScript + Vite | 现代化组件化开发、毫秒级响应、严谨类型保障 |
+| **蓝牙通信** | btleplug (Windows BLE API) | 原生低功耗蓝牙支持，即开即连免配对 |
+| **UI 设计** | Lucide React + Modern CSS | 纯正暗黑电竞质感，双主题自适应 |
+
+---
+
+## 🚀 快速上手
+
+### 📥 方式一：直接下载使用（推荐普通用户）
+前往项目的 [Releases](https://github.com/faintonce/OpenRevo) 页面下载最新发布的单文件免安装绿色版：
+1. 下载 `OpenRevo.exe`；
+2. 双击运行；
+3. 为避免冲突，**接管官方控制中心**是必选操作，否则只能MOCK演示；
+3. 软件启动后会自动最小化至任务栏托盘，右键或左键托盘图标即可立即使用。
+
+---
+
+### 💻 方式二：从源码编译（开发者）
+
+#### 环境准备
+- **Node.js** >= 18
+- **pnpm** >= 9
+- **Rust 工具链** (stable-x86_64-pc-windows-msvc)
+- **Visual Studio C++ Build Tools** (包含 Windows SDK)
+
+#### 1. 克隆代码仓库
+```bash
+git clone https://github.com/your-username/OpenRevo.git
+cd OpenRevo
+```
+
+#### 2. 安装前端依赖
+```powershell
+pnpm install
+```
+
+#### 3. 开发环境运行
+```powershell
+# 运行安全检查与静态语法验证
+.\safe_check.ps1
+
+# 启动开发调试模式 (自动以 Mock 仿真运行)
+pnpm tauri dev
+```
+
+#### 4. 打包构建
+```powershell
+# 使用内置优化脚本打包独立 Release 版本
+.\safe_build.ps1
+```
+
+---
+
+## 📜 开源协议
+
+本项目采用 **[MIT License](LICENSE)** 协议开源。
+
+- 您可以自由运行、研究、修改与分享本项目的源代码；
+- 您可以在任何项目中使用、复制和修改本项目；
+- 只需在分发时保留版权声明和许可说明；
+- 本项目鼓励开放协作与学习共享，适合社区维护与进一步开发。
+
+---
+
+## ⚠️ 免责声明
+
+1. 本软件为开源社区独立项目，**非机械革命 (MECHREVO) 或同方官方出品**，与上述品牌无商业从属关系；
+2. 软件由热心开发者在业余时间维护开发，作者不对使用本软件过程中因用户极端超频、非法改动硬件参数导致的硬件损坏或数据丢失承担连带责任；
+3. 调整各项电压、功耗墙与风扇转速参数时，请务必保持在官方推荐的安全阈值内，合理用机。
+
+<div align="center">
+
+**OpenRevo 致力于让每一个机械革命用户享受纯净、流畅、高效的掌上性能飞跃！**  
+如果这个项目帮到了你，欢迎给仓库点个 ⭐ **Star** 支持我持续开发！
+
+</div>
