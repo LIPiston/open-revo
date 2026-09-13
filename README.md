@@ -85,6 +85,7 @@ This repo is intended to serve as a transparent foundation for the project, and 
 
 ### 3. 🎚️ 极客自定义调校与性能模式 (Custom Tuning)
 - **四大运行模式即时切换**：办公模式 (Office)、均衡模式 (Balance)、狂暴模式 (Turbo/Beast)、极客自定义调优模式 (Custom)；
+- **双层开放规格与三大模式定制 (models.json)**：彻底解耦硬件真理（出厂探查）与用户意图，支持通过纯文本 JSON 自由定制办公、平衡、狂暴三大原厂模式的功耗墙与温控策略（详见 [📖 机型与三大模式功耗定制指南](docs/models_customization_guide.md)）；
 - **CPU 功耗释放精细微调**：支持对长时间功耗限制 (PL1)、短时间突增功耗 (PL2) 与瞬态峰值电流 (PL4) 进行精细调节；
 - **GPU 动态增益调控**：实时管控显卡 Dynamic Boost 动态调度幅度；
 - **多阶梯风扇温控曲线**：CPU / GPU 独立多点温度响应曲线，支持自定义阻尼灵敏度与防骤增平滑调节；
@@ -152,10 +153,16 @@ OpenRevo 遵循现代分层解耦架构设计：
 
 ---
 
+## 📖 文档与进阶指南
+
+* 📄 [**机型与三大模式功耗定制指南 (models.json)**](docs/models_customization_guide.md)：详细介绍机型配置架构、双层规格体系（出厂基准 `factory_specs` 与运行配置 `presets`）、三大模式功耗墙与温控墙参数调节、调优实战案例及避坑指南。
+
+---
+
 ## 🚀 快速上手
 
 ### 📥 方式一：直接下载使用（推荐普通用户）
-前往项目的 [Releases](https://github.com/faintonce/OpenRevo) 页面下载最新发布的单文件免安装绿色版：
+前往项目的 [Releases](https://github.com/faintonce/open-revo) 页面下载最新发布的单文件免安装绿色版：
 1. 下载 `OpenRevo.exe`；
 2. 双击运行；
 3. 为避免冲突，**接管官方控制中心**是必选操作，否则只能MOCK演示；
