@@ -33,6 +33,10 @@ This repo is intended to serve as a transparent foundation for the project, and 
 
 ---
 
+## 开源计划
+
+本项目承诺未来百分百开源，绝不藏私，但目前时间仓促，作者因熬夜开发需要补补觉，文档也没时间搞，请耐心等我整理好了再分批放上来。
+
 ## � 界面预览
 
 以下截图展示了 OpenRevo 当前公开的核心界面与功能入口，便于快速理解项目方向与交互方式。
@@ -78,6 +82,9 @@ This repo is intended to serve as a transparent foundation for the project, and 
 - **智能交接与防黑屏守护**：
   - 退出软件时，自动将当前动态灯效智能映射为单片机内置流光并无缝托管，杜绝背光突然熄灭或变暗；
   - 拔掉电源自动平滑降级为低能耗硬件模式，重新插电智能恢复高刷流光。
+- **高度自定义，配置文件可分享**：
+  - 自己在键盘上写动画整活儿，导入配置文件立即生效；
+  - 稍后开源配置文件编写规范和配套SKILL，找你的豆包元宝DEEPSEEK帮你写就行。
 
 ### 2. 🎛️ 极速托盘抽屉 (MiniDrawer)
 - 驻留 Windows 任务栏系统托盘，轻点图标瞬间呼出微型控制台；
