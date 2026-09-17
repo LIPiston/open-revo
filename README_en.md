@@ -28,7 +28,7 @@
 A clean and responsive alternative to bloated, laggy, memory-leaking, and overly conservative official background services. No official control-center components are required, while the feature set keeps expanding for a fast, plug-and-play hardware-control experience.
 
 </div>
-[中文](README.md)
+
 
 ---
 
